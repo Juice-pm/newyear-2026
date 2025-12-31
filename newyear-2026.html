@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="zh-CN"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="UTF-8" /&gt;</p>
+<p class="p1">&lt;title&gt;2026 · 一点点祝福&lt;/title&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p1">html, body {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: #000;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-family: "PingFang SC", "Microsoft YaHei", sans-serif;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">canvas {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: block;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.tip {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>position: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>bottom: 28px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: rgba(255,255,255,0.7);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>letter-spacing: 1px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.blessing {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>position: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>top: 18%;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 34px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>line-height: 1.6;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: #f6e7c1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-shadow: 0 0 18px rgba(255, 215, 160, 0.6);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>opacity: 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>transition: opacity 1s ease;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 0 20px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>box-sizing: border-box;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.footer {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>position: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>bottom: 70px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: rgba(255,255,255,0.4);</p>
+<p class="p1">}</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;canvas id="canvas"&gt;&lt;/canvas&gt;</p>
+<p class="p1">&lt;div class="blessing" id="blessing"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;div class="footer"&gt;— 给你的一点点祝福&lt;/div&gt;</p>
+<p class="p1">&lt;div class="tip"&gt;轻轻点一下吧&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1">const canvas = document.getElementById("canvas");</p>
+<p class="p1">const ctx = canvas.getContext("2d");</p>
+<p class="p1">const blessingEl = document.getElementById("blessing");</p>
+<p class="p2"><br></p>
+<p class="p1">function resize() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>canvas.width = window.innerWidth;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>canvas.height = window.innerHeight;</p>
+<p class="p1">}</p>
+<p class="p1">resize();</p>
+<p class="p1">window.addEventListener("resize", resize);</p>
+<p class="p2"><br></p>
+<p class="p1">const blessings = [</p>
+<p class="p1"><span class="Apple-converted-space">  </span>"愿这一年，对你温柔一些。",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>"慢一点也没关系，你已经在路上了。",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>"希望你能在自己的节奏里，安心生活。",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>"愿你不被催促，也不被比较。",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>"这一年，愿你心里多一点安静。",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>"愿日子简单，却不失光亮。",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>"愿你被理解，也被善意包围。",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>"不必急着成为谁，你已经很好了。",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>"愿世界轻轻托住你。",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>"新的一年，愿你与自己和解。"</p>
+<p class="p1">];</p>
+<p class="p2"><br></p>
+<p class="p1">class Particle {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>constructor(x, y, tx, ty, color) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>this.x = x;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>this.y = y;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>this.tx = tx;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>this.ty = ty;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>this.vx = (tx - x) * 0.018;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>this.vy = (ty - y) * 0.018;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>this.alpha = 1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>this.color = color;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>update() {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>this.x += this.vx;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>this.y += this.vy;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>this.alpha -= 0.003;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>draw() {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>ctx.globalAlpha = this.alpha;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>ctx.fillStyle = this.color;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>ctx.beginPath();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>ctx.fill();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>ctx.globalAlpha = 1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">let particles = [];</p>
+<p class="p2"><br></p>
+<p class="p1">function createTextParticles(text) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const temp = document.createElement("canvas");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const tctx = temp.getContext("2d");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>temp.width = canvas.width;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>temp.height = canvas.height;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>tctx.fillStyle = "#fff";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tctx.font = "bold 200px Arial";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tctx.textAlign = "center";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tctx.textBaseline = "middle";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tctx.fillText(text, canvas.width / 2, canvas.height / 2);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const data = tctx.getImageData(0, 0, canvas.width, canvas.height).data;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>particles = [];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (let y = 0; y &lt; canvas.height; y += 6) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for (let x = 0; x &lt; canvas.width; x += 6) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (data[(y * canvas.width + x) * 4 + 3] &gt; 150) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>particles.push(</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>new Particle(</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Math.random() * canvas.width,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>canvas.height + Math.random() * 200,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>x,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>y,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>`hsl(${40 + Math.random() * 30}, 80%, 70%)`</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function animate() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ctx.clearRect(0, 0, canvas.width, canvas.height);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>particles.forEach(p =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>p.update();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>p.draw();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>requestAnimationFrame(animate);</p>
+<p class="p1">}</p>
+<p class="p1">animate();</p>
+<p class="p2"><br></p>
+<p class="p1">document.addEventListener("click", () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>createTextParticles("2026");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const text = blessings[Math.floor(Math.random() * blessings.length)];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>blessingEl.textContent = text;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>blessingEl.style.opacity = 1;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>setTimeout(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>blessingEl.style.opacity = 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}, 3500);</p>
+<p class="p1">});</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
