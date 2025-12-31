@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>2026 · 一点点祝福</title>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    overflow: hidden;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+canvas {
+    display: block;
+}
+
+.tip {
+    position: fixed;
+    bottom: 28px;
+    width: 100%;
+    text-align: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.blessing {
+    position: fixed;
+    top: 18%;
+    width: 100%;
+    text-align: center;
+    font-size: 34px;
+    line-height: 1.6;
+    color: #f6e7c1;
+    text-shadow: 0 0 18px rgba(255, 215, 160, 0.6);
+    opacity: 0;
+    transition: opacity 1s ease;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.footer {
+    position: fixed;
+    bottom: 70px;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+<div class="blessing" id="blessing"></div>
+<div class="footer">— 给你的一点点祝福</div>
+<div class="tip">轻轻点一下吧</div>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const blessingEl = document.getElementById("blessing");
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+const blessings = [
+  "愿这一年，对你温柔一些。",
+  "慢一点也没关系，你已经在路上了。",
+  "希望你能在自己的节奏里，安心生活。",
+  "愿你不被催促，也不被比较。",
+  "这一年，愿你心里多一点安静。",
+  "愿日子简单，却不失光亮。",
+  "愿你被理解，也被善意包围。",
+  "不必急着成为谁，你已经很好了。",
+  "愿世界轻轻托住你。",
+  "新的一年，愿你与自己和解。"
+];
+
+class Particle {
+    constructor(x, y, tx, ty, color) {
+        this.x = x;
+        this.y = y;
+        this.tx = tx;
+        this.ty = ty;
+        this.vx = (tx - x) * 0.018;
+        this.vy = (ty - y) * 0.018;
+        this.alpha = 1;
+        this.color = color;
+    }
+
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha -= 0.003;
+    }
+
+    draw() {
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+    }
+}
+
+let particles = [];
+
+function createTextParticles(text) {
+    const temp = document.createElement("canvas");
+    const tctx = temp.getContext("2d");
+
+    temp.width = canvas.width;
+    temp.height = canvas.height;
+
+    tctx.fillStyle = "#fff";
+    tctx.font = "bold 200px Arial";
+    tctx.textAlign = "center";
+    tctx.textBaseline = "middle";
+    tctx.fillText(text, canvas.width / 2, canvas.height / 2);
+
+    const data = tctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    particles = [];
+
+    for (let y = 0; y < canvas.height; y += 6) {
+        for (let x = 0; x < canvas.width; x += 6) {
+            if (data[(y * canvas.width + x) * 4 + 3] > 150) {
+                particles.push(
+                    new Particle(
+                        Math.random() * canvas.width,
+                        canvas.height + Math.random() * 200,
+                        x,
+                        y,
+                        `hsl(${40 + Math.random() * 30}, 80%, 70%)`
+                    )
+                );
+            }
+        }
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+        p.update();
+        p.draw();
+    });
+    requestAnimationFrame(animate);
+}
+animate();
+
+document.addEventListener("click", () => {
+    createTextParticles("2026");
+
+    const text = blessings[Math.floor(Math.random() * blessings.length)];
+    blessingEl.textContent = text;
+    blessingEl.style.opacity = 1;
+
+    setTimeout(() => {
+        blessingEl.style.opacity = 0;
+    }, 3500);
+});
+</script>
+
+</body>
+</html>
